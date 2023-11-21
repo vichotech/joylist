@@ -1,0 +1,19 @@
+:root {
+    /* Color */
+    --primary-05: #170800;
+    --primary-10: #2e1000;
+    --primary-20: #5c2000;
+    --primary-30: #8a3100;
+    --primary-40: #b84100;
+    --primary-50: #e65100;
+    --primary-60: #eb7433;
+    --primary-70: #f09766;
+    --primary-80: #f5b999;
+    --primary-90: #fadccc;
+    --primary-95: #fdeee6;
+
+    --tc: #00f;
+
+    --b-bar-btn: 24px;
+    --b-bar-p: 12px; 
+}

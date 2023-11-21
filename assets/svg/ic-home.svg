@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>.f87ab682-912b-48b5-8741-5fd1cac82e10{fill:#cacaca;}</style>
+    </defs>
+    <g id="b040cab4-a234-40c8-b5c3-cbe4ef9c273f" data-name="Bottom bar">
+        <path class="f87ab682-912b-48b5-8741-5fd1cac82e10" d="M20.87,9.1,13.25,3a2,2,0,0,0-2.5,0L3.13,9.1A3,3,0,0,0,2,11.44V20a2,2,0,0,0,2,2h7V15a1,1,0,0,1,2,0v7h7a2,2,0,0,0,2-2V11.44A3,3,0,0,0,20.87,9.1Z"/>
+    </g>
+</svg>

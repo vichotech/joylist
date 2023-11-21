@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="../assets/img/favicon.ico" type="image/x-icon">
+    <title>Year.ly · Inicio</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="classes.css">
+</head>
+<body>
+    <!-- <div class="notif-bar"></div> -->
+    <div class="new-event-dialog grid-cont t_cb5" id="dialog">
+        <div class="dialog-header flex-cont">
+            <h2>Nuevo evento</h2>
+            <button id="new-event-btn">GUARDAR</button>
+        </div>
+        <form class="flex-cont">
+            <label for="name">Nombre</label>
+            <input type="text" name="name" id="name-input" placeholder="Nombre">
+            <label for="birth-date">Cumpleaños</label>
+            <input type="datetime" name="birth-date" id="birthday-input" placeholder="dd/mm/aaaa" onfocus="toogleModal()">
+        </form>
+    </div>
+    <main class="main-view grid-cont">
+
+        <div class="app-bar flex-cont">
+            <h1>Inicio</h1>
+            <div class="user-avatar">
+                <a href=""></a>
+            </div>
+        </div>
+
+        <div class="sections-cont">
+
+            <!-- ========== HOME ========== -->
+            <section class="section" id="home">
+                <section class="events-group">
+                    <h2>Hoy</h2>
+                    <div class="events-cont" id="today-events">
+                        <div class="card event flex-cont">
+                            <div class="avatar"></div>
+                            <div class="event-info flex-cont">
+                                <div class="event-details flex-cont">
+                                    <h3 class="event-name">Evento 1</h3>
+                                    <p class="event-date"><span class="event-day">25</span>/<span class="event-month">10</span>/<span class="event-year">2022</span></p>
+                                </div>
+                                <p class="event-desc"><span class="turn">18</span> <span class="unit">años</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- <section class="events-group">
+                    <h2>Mañana</h2>
+                    <div class="events-cont" id="tomorow-events">
+                        <div class="card event flex-cont">
+                            <p class="event-name">No hay cumpleaños mañana</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="events-group">
+                    <h2>Esta semana</h2>
+                    <div class="events-cont" id="this-week-events">
+                        <div class="card event flex-cont">
+                            <div class="event-info flex-cont">
+                                <div class="event-details flex-cont">
+                                    <p class="event-name">No hay cumpleaños esta semana</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+                <section class="events-group">
+                    <h2>Este mes</h2>
+                    <div class="events-cont" id="this-month-events">
+                        <div class="card event flex-cont">
+                            <div class="event-info flex-cont">
+                                <div class="event-details flex-cont">
+                                    <p class="event-name">No hay cumpleaños este mes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- ========== CONTACTS ========== -->
+            <section class="section" id="contacts">
+                <section class="contacts-group">
+                    <div class="contacts-cont">
+                    </div>
+                </section>
+            </section>
+
+        </div>
+
+        <!-- ========== PLUS BUTTON ========== -->
+        <div id="plus-btn-cont" class="circle toggle-modal" onclick="toogleNewEventDialog()">
+            <div id="plus-btn" class="circle">
+                <span class="plus-line plus-line-h"></span>
+                <span class="plus-line plus-line-v"></span>
+            </div>
+
+            <!-- Comentar contenido a continuación para ocultar:
+            <div class="circle bubble-btn"></div>
+            <div class="circle bubble-btn"></div>
+            <div class="circle bubble-btn"></div> -->
+        </div>
+
+        <!-- ========== BOTTOM BAR ========== -->
+        <div class="bottom-bar">
+            <a data-menu="home" class="bottom-bar__btn active" href="#home">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <defs>
+                        <style>.f87ab682-912b-48b5-8741-5fd1cac82e10{fill:#cacaca;}</style>
+                    </defs>
+                    <g id="b040cab4-a234-40c8-b5c3-cbe4ef9c273f" data-name="Bottom bar">
+                        <path class="f87ab682-912b-48b5-8741-5fd1cac82e10" d="M20.87,9.1,13.25,3a2,2,0,0,0-2.5,0L3.13,9.1A3,3,0,0,0,2,11.44V20a2,2,0,0,0,2,2h7V15a1,1,0,0,1,2,0v7h7a2,2,0,0,0,2-2V11.44A3,3,0,0,0,20.87,9.1Z"/>
+                    </g>
+                </svg>
+            </a>
+            <a data-menu="contacts" class="bottom-bar__btn" href="#contacts">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <defs>
+                        <style>.aa0702b9-5d0a-4ccd-8cb0-da27c695d337{fill:#cacaca;}</style>
+                    </defs>
+                    <g id="b4218e06-e9b4-4dcb-9256-fef15497bd82" data-name="Bottom bar">
+                        <path class="aa0702b9-5d0a-4ccd-8cb0-da27c695d337" d="M5.91,11H18.09A1.91,1.91,0,0,1,20,12.91V22a0,0,0,0,1,0,0H4a0,0,0,0,1,0,0V12.91A1.91,1.91,0,0,1,5.91,11Z"/>
+                        <path class="aa0702b9-5d0a-4ccd-8cb0-da27c695d337" d="M15,7A3,3,0,1,1,9,7c0-1.93,2.12-4.22,2.8-4.9a.27.27,0,0,1,.4,0C12.88,2.77,15,5.06,15,7Z"/>
+                    </g>
+                </svg>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- ========== MODAL ========== -->
+    <div id="modal">
+        <form class="flex-cont birthday-form">
+            
+            <p class="flex-item form-title"><span class="date-display birthday-display">dd</span> de <span class="date-display birthmonth-display">mm</span> de <span class="date-display birthyear-display">yyyy</span></p>
+
+            <div class="wrappers-cont flex-item">
+                <div id="days-wrapper" class="wrapper">
+                </div>
+                <div id="months-wrapper" class="wrapper">
+                </div>
+                <div id="years-wrapper" class="wrapper">
+                </div>
+            </div>
+
+            <div class="btn-cont flex-cont flex-item cont-col-2">
+                <input class="item-col-2 toggle-modal" type="button" value="CANCELAR" onclick="toogleModal()">
+                <input class="item-col-2 toggle-modal" type="button" value="ACEPTAR" onclick="toogleModal(), newDate()">
+            </div>
+
+        </form>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

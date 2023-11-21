@@ -1,0 +1,61 @@
+@import 'tokens.css';
+
+/* FLEXBOX
+============================================================== */
+/* Flex container
+------------------------------- */
+.flex-cont
+{
+    display: flex;
+}
+
+.cont-col-2
+{
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    flex-grow: 1;
+}
+
+/* Flex items
+------------------------------- */
+.flex-item
+{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.item-col-1
+{
+    width: 100%
+}
+
+.item-col-2
+{
+    width: 47%;
+    align-self: flex-end;
+}
+
+/* GRID
+-------------------------------------------------------------- */
+.grid-cont {
+    display: grid;
+}
+
+/* TRANSITIONS
+-------------------------------------------------------------- */
+.t_eo2 {
+    transition: all ease-out 0.2s;
+    -webkit-transition: all ease-out 0.2s;
+    -moz-transition: all ease-out 0.2s;
+    -ms-transition: all ease-out 0.2s;
+    -o-transition: all ease-out 0.2s;
+}
+
+.t_cb5 {
+    transition: all cubic-bezier(.08,.82,.17,1) 0.5s;
+    -webkit-transition: all cubic-bezier(.08,.82,.17,1) 0.5s;
+    -moz-transition: all cubic-bezier(.08,.82,.17,1) 0.5s;
+    -ms-transition: all cubic-bezier(.08,.82,.17,1) 0.5s;
+    -o-transition: all cubic-bezier(.08,.82,.17,1) 0.5s;
+}

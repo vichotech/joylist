@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>.aa0702b9-5d0a-4ccd-8cb0-da27c695d337{fill:#cacaca;}</style>
+    </defs>
+    <g id="b4218e06-e9b4-4dcb-9256-fef15497bd82" data-name="Bottom bar">
+        <path class="aa0702b9-5d0a-4ccd-8cb0-da27c695d337" d="M5.91,11H18.09A1.91,1.91,0,0,1,20,12.91V22a0,0,0,0,1,0,0H4a0,0,0,0,1,0,0V12.91A1.91,1.91,0,0,1,5.91,11Z"/>
+        <path class="aa0702b9-5d0a-4ccd-8cb0-da27c695d337" d="M15,7A3,3,0,1,1,9,7c0-1.93,2.12-4.22,2.8-4.9a.27.27,0,0,1,.4,0C12.88,2.77,15,5.06,15,7Z"/>
+    </g>
+</svg>
