@@ -30,18 +30,20 @@ const dateInputArray = Array.from(document.querySelectorAll('[type=datetime]'));
 dateInputArray.forEach(input => {
     input.addEventListener("focus", () => {
         input.parentNode.classList.add("active");
-        console.log("Date open")
     });
     input.addEventListener("blur", () => {
         input.parentNode.classList.remove("active");
-        console.log("Date closed")
     });
 })
 
 const nameInput = document.getElementById("name-input");
 const dateInput = document.getElementById("date-input");
 
-const newEventBtn = document.getElementById("new-event-btn");
+const createEventBtn = document.getElementById("create-event-btn");
+const cancelEventBtn = document.getElementById("cancel-event-btn");
+const acceptDateBtn = document.getElementById("accept-date-btn");
+const cancelDateBtn = document.getElementById("cancel-date-btn");
+
 
 /* VARIABLES
 ================================================================*/
@@ -70,8 +72,9 @@ let monthIndex = 0;
 let dayScroll = 0;
 let dayIndex = 0;
 
-/* (USER) EVENTS
+/* EVENTS
 ================================================================*/
+// Load data from localStorage if exists on start
 window.addEventListener("load", () => {
     const keys = Object.keys(localStorage);
     keys.forEach((key) => {
@@ -87,51 +90,7 @@ window.addEventListener("load", () => {
     });
 });
 
-newEventBtn.addEventListener("click", () => {
-    const event = createNewEvent(`${nameInput.value}`, parseInt(birthMonth), birthDay, birthYear);
-    if (birthMonth == currentMonth) {
-        const thisMonthGroup = document.getElementById("this-month-events");
-        thisMonthGroup.appendChild(event);
-    } else {
-        const eventMonthGroup = document.getElementById(`month-${birthMonth + 1}-events`);
-        eventMonthGroup.appendChild(event);
-    };
-    saveNewEvent(`${nameInput.value}`, parseInt(birthMonth), birthDay, birthYear);
-    toogleNewEventDialog();
-    resetForm();
-});
-
-/* FUNCTIONS
-================================================================*/
-// Toggle birth date dialog
-function toggleDateModal () {
-    if(!isToggled) {
-        dateModal.classList.toggle("active");
-        updateDay();
-        updateMonth();
-        updateYear();
-        isToggled = true;
-
-        setTimeout(() => {
-            isToggled = false;
-        }, 100);
-    }
-}
-
-// Toggle 'New event' dialog
-function toogleNewEventDialog() {
-    if(!dialogToggled) {
-        dialog.classList.toggle("active");
-        dialogToggled = true;
-
-        setTimeout(() => {
-            dialogToggled = false;
-        }, 200);
-    }
-    //takeContactName();
-}
-
-// Para alternar color de los íconos del bottom bar (tomado de un tutorial)
+// Toggle bottom app bar icons state
 document.querySelectorAll("[data-menu]").forEach (item => {
     item.addEventListener ('click', e => {
         let dataCanvas = document.querySelector("[data-menu].active");
@@ -142,22 +101,87 @@ document.querySelectorAll("[data-menu]").forEach (item => {
     })
 })
 
-function resetForm() {
-    daysWrapper.scrollTo({
-        top: 0,
-        behavior: 'instant'
-    });
-    monthsWrapper.scrollTo({
-        top: 0,
-        behavior: 'instant'
-    });
-    yearsWrapper.scrollTo({
-        top: 0,
-        behavior: 'instant'
-    });
+cancelDateBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    toggleDateModal();
+    resetDateModal();
+});
 
-    nameInput.value = "";
-    birthdayInput.value = "";
+acceptDateBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+    newDate();
+    toggleDateModal();
+});
+
+cancelEventBtn.addEventListener("click", () => {
+    toggleEventDialog();
+    resetEventDialog();
+});
+
+createEventBtn.addEventListener("click", () => {
+    const event = createNewEvent(`${nameInput.value}`, parseInt(birthMonth), birthDay, birthYear);
+    if (birthMonth == currentMonth) {
+        const thisMonthGroup = document.getElementById("this-month-events");
+        thisMonthGroup.appendChild(event);
+    } else {
+        const eventMonthGroup = document.getElementById(`month-${birthMonth + 1}-events`);
+        eventMonthGroup.appendChild(event);
+    };
+    saveNewEvent(`${nameInput.value}`, parseInt(birthMonth), birthDay, birthYear);
+    toggleEventDialog();
+    resetEventDialog();
+});
+
+/* FUNCTIONS
+================================================================*/
+function toggleDateModal () {
+    if(!isToggled) {
+        dateModal.classList.toggle("active");
+        updateDay();
+        updateMonth();
+        updateYear();
+        isToggled = true;
+
+        setTimeout(() => {
+            isToggled = false;
+        }, 200);
+    }
+}
+
+function resetDateModal() {
+    setTimeout(() => {
+        daysWrapper.scrollTo({
+            top: 0,
+            behavior: 'instant'
+        });
+        monthsWrapper.scrollTo({
+            top: 0,
+            behavior: 'instant'
+        });
+        yearsWrapper.scrollTo({
+            top: 0,
+            behavior: 'instant'
+        });
+    }, 200);
+}
+
+function toggleEventDialog() {
+    if(!dialogToggled) {
+        resetDateModal();
+        dialog.classList.toggle("active");
+        dialogToggled = true;
+
+        setTimeout(() => {
+            dialogToggled = false;
+        }, 200);
+    }
+}
+
+function resetEventDialog() {
+    setTimeout(() => {
+        nameInput.value = "";
+        dateInput.value = "";
+    }, 200);
 }
 
 /* YEARS
@@ -296,8 +320,7 @@ const allYears = [].slice.call(years);
 yearsWrapper.addEventListener('scroll', () => {
     yearScroll = yearsWrapper.scrollTop;
     yearIndex = yearScroll / 40;
-    if(yearScroll % 40 == 0)
-    {
+    if(yearScroll % 40 == 0) {
         updateYear();
     }
 });
@@ -307,8 +330,7 @@ const allMonths = [].slice.call(months);
 monthsWrapper.addEventListener('scroll', () => {
     monthScroll = monthsWrapper.scrollTop;
     monthIndex = monthScroll / 40;
-    if(monthScroll % 40 == 0)
-    {
+    if(monthScroll % 40 == 0) {
         updateMonth();
     }
 });
@@ -318,8 +340,7 @@ const allDays = [].slice.call(days);
 daysWrapper.addEventListener('scroll', () => {
     dayScroll = daysWrapper.scrollTop;
     dayIndex = dayScroll / 40;
-    if(dayScroll % 40 == 0)
-    {
+    if(dayScroll % 40 == 0) {
         updateDay();
     }
 });
@@ -345,7 +366,7 @@ function updateYear() {
 ================================================================*/
 // Update birthday in #date-input
 function newDate() {
-    birthdayInput.value = `${birthDay}/${parseInt(birthMonth) + 1}/${birthYear}`;
+    dateInput.value = `${birthDay}/${parseInt(birthMonth) + 1}/${birthYear}`;
 }
 
 /* function setMonths() {
@@ -454,7 +475,7 @@ function createNewEvent(name, month, day, year) {
     event_detail.setAttribute("class", "event-details");
     event_detail.classList.add('flex');
 
-    const event_name = document.createElement('h3');
+    const event_name = document.createElement('h4');
     event_name.setAttribute("class", "event-name");
     event_name.textContent = name;
 
@@ -489,7 +510,6 @@ function saveNewEvent(name, month, day, year) {
 
 function createEmptyState(eventsCont, month) {
     if(eventsCont.innerHTML.trim() === '') {
-        console.log("El contenedor no tiene hijos");
         const emptyState = document.createElement('div');
         emptyState.classList.add("card");
         emptyState.classList.add("empty-state");
@@ -515,9 +535,12 @@ function createEmptyState(eventsCont, month) {
 // Remainig events this year
 for(m = currentMonth + 1; m < monthsArray.length; m++) {
     const eventsGroup = document.createElement('section');
-    eventsGroup.setAttribute("class", "events-group");
+    eventsGroup.classList.add("events-group");
+    /* eventsGroup.classList.add("flex");
+    eventsGroup.classList.add("f-d_col");
+    eventsGroup.classList.add("g_1"); */
         
-    const eventsGroupHeader = document.createElement('h2');
+    const eventsGroupHeader = document.createElement('h3');
     eventsGroupHeader.setAttribute("class", "sentence-case");
     eventsGroupHeader.textContent = monthsArray[m].name.es;
 
@@ -535,9 +558,12 @@ for(m = currentMonth + 1; m < monthsArray.length; m++) {
 // Upcoming events next year
 for(m = 0; m < currentMonth; m++) {
     const eventsGroup = document.createElement('section');
-    eventsGroup.setAttribute("class", "events-group");
+    eventsGroup.classList.add("events-group");
+    /* eventsGroup.classList.add("flex");
+    eventsGroup.classList.add("f-d_col");
+    eventsGroup.classList.add("g_1"); */
         
-    const eventsGroupHeader = document.createElement('h2');
+    const eventsGroupHeader = document.createElement('h3');
     eventsGroupHeader.setAttribute("class", "sentence-case");
     eventsGroupHeader.textContent = `${monthsArray[m].name.es} de ${currentYear + 1}`;
 

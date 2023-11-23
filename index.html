@@ -7,19 +7,24 @@
     <title>Hollyday</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="classes.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,700,400,600,300,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- ========== EVENT DIALOG ========== -->
     <div class="new-event-dialog grid-cont t_cb5" id="dialog">
         <div class="dialog-header flex bd-b_n-2">
-            <p class="dialog-header__title">Nuevo cumple</p>
+            <h2 class="dialog-header__title">Nuevo evento</h2>
         </div>
+        
         <form class="flex g_3">
             <div class="input-cont flex f-d_col g_1">
                 <label class="label--top" for="name">Nombre</label>
                 <input type="text" name="name" id="name-input" class="bd_s-2 bd-r_3 t_eo2" placeholder="Ej. Victor" required>
             </div>
             <div class="input-cont flex f-d_col g_1">
-                <label class="label--top" for="birth-date">Cumpleaños</label>
+                <label class="label--top" for="birth-date">Fecha</label>
                 <div class="custom-input flex bd_s-2 bd-r_3 t_eo2">
                     <div class="custom-input__btn flex a-i_center j-c_center t_eo2" onclick="toggleDateModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -32,25 +37,33 @@
             </div>
         </form>
         <div class="btn-cont w_100 flex g_3">
-            <button id="cancel-event-btn" class="btn--secondary t_eo2" onclick="toogleNewEventDialog()">CANCELAR</button>
-            <button id="new-event-btn" class="btn--primary t_eo2">GUARDAR</button>
+            <button id="cancel-event-btn" class="btn--secondary t_eo2">CANCELAR</button>
+            <button id="create-event-btn" class="btn--primary t_eo2">GUARDAR</button>
         </div>
     </div>
     <main class="main-view grid-cont">
         <div class="app-bar flex bd-b_n-2">
             <h1>Hollyday</h1>
+            <a class="flex f-d_col a-i_center" href="https://github.com/vichotech/hollyday" target="_blank">
+                <div class="icon-cont flex j-c_center a-i_center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path class="path" d="M12,2.2c-5.5,0-10,4.5-10,10c0,4.4,2.9,8.2,6.8,9.5c0.5,0.1,0.7-0.2,0.7-0.5c0-0.2,0-1,0-1.9 c-2.8,0.6-3.4-1.2-3.4-1.2C5.7,17.1,5,16.8,5,16.8c-0.9-0.6,0.1-0.6,0.1-0.6c1,0.1,1.5,1,1.5,1C7.5,18.7,9,18.3,9.5,18 c0.1-0.6,0.3-1.1,0.6-1.3c-2.2-0.3-4.6-1.1-4.6-4.9c0-1.1,0.4-2,1-2.7C6.5,8.8,6.2,7.8,6.7,6.4c0,0,0.8-0.3,2.8,1 c0.8-0.2,1.7-0.3,2.5-0.3c0.8,0,1.7,0.1,2.5,0.3c1.9-1.3,2.7-1,2.7-1c0.5,1.4,0.2,2.4,0.1,2.6c0.6,0.7,1,1.6,1,2.7 c0,3.8-2.3,4.7-4.6,4.9c0.4,0.3,0.7,0.9,0.7,1.9c0,1.3,0,2.4,0,2.7c0,0.3,0.2,0.6,0.7,0.5c4-1.3,6.8-5.1,6.8-9.5 C22,6.7,17.5,2.2,12,2.2z"/>
+                    </svg>
+                </div>
+            </a>
         </div>
         <div class="sections-cont">
-            <!-- ========== HOME ========== -->
+            <!-- ========== EVENTS SECTION ========== -->
             <section class="section" id="events">
+                <h2 class="section__title">Eventos</h2>
                 <section class="events-group">
-                    <h2>Hoy</h2>
+                    <h3>Hoy</h3>
                     <div class="events-cont" id="today-events">
                         <div class="card event flex">
                             <div class="avatar"></div>
                             <div class="event-info flex">
                                 <div class="event-details flex">
-                                    <h3 class="event-name">Evento 1</h3>
+                                    <h4 class="event-name">Evento 1</h4>
                                     <p class="event-date"><span class="event-day">25</span>/<span class="event-month">10</span>/<span class="event-year">2022</span></p>
                                 </div>
                                 <p class="event-desc"><span class="turn">18</span> <span class="unit">años</span></p>
@@ -58,28 +71,8 @@
                         </div>
                     </div>
                 </section>
-                <!-- <section class="events-group">
-                    <h2>Mañana</h2>
-                    <div class="events-cont" id="tomorow-events">
-                        <div class="card event flex">
-                            <p class="event-name">No hay cumpleaños mañana</p>
-                        </div>
-                    </div>
-                </section>
-                <section class="events-group">
-                    <h2>Esta semana</h2>
-                    <div class="events-cont" id="this-week-events">
-                        <div class="card event flex">
-                            <div class="event-info flex">
-                                <div class="event-details flex">
-                                    <p class="event-name">No hay cumpleaños esta semana</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> -->
-                <section class="events-group">
-                    <h2>Este mes</h2>
+                <section class="events-group flex f-d_col g_1">
+                    <h3>Este mes</h3>
                     <div class="events-cont" id="this-month-events">
                         <div class="card empty-state flex">
                             No hay cumpleaños este mes :(
@@ -88,10 +81,10 @@
                 </section>
             </section>
 
-            <!-- ========== CONTACTS ========== -->
+            <!-- ========== SETTINGS SECTION ========== -->
             <section class="section" id="settings">
+                <h2 class="section__title">Ajustes</h2>
             </section>
-
         </div>
 
         <!-- ========== BOTTOM BAR ========== -->
@@ -108,7 +101,7 @@
                 </div>
             </a>
             <!-- ========== PLUS BUTTON ========== -->
-            <div id="plus-btn-cont" class="circle" onclick="toogleNewEventDialog()">
+            <div id="plus-btn-cont" class="circle" onclick="toggleEventDialog()">
                 <div id="plus-btn" class="circle">
                     <span class="plus-line plus-line-h"></span>
                     <span class="plus-line plus-line-v"></span>
@@ -123,12 +116,11 @@
                 </div>
             </a>
         </div>
-
     </main>
 
     <!-- ========== DATE MODAL ========== -->
     <div id="date-modal">
-        <form class="date-form flex f-d_col a-i_center j-c_center g_2">
+        <div class="date-form flex f-d_col a-i_center j-c_center g_2">
             <div class="form-header w_100 flex bd-b_n-2">
                 <p class="form-title"><span class="date-display birthday-display">dd</span> de <span class="date-display birthmonth-display">mm</span> de <span class="date-display birthyear-display">yyyy</span></p>
             </div>
@@ -143,11 +135,10 @@
             </div>
 
             <div class="btn-cont w_100 flex g_4">
-                <button class="btn--secondary t_eo2" onclick="toggleDateModal()">CANCELAR</button>
-                <button class="btn--primary t_eo2" onclick="toggleDateModal(), newDate()">ACEPTAR</button>
+                <button id="cancel-date-btn" class="btn--secondary t_eo2">CANCELAR</button>
+                <button id="accept-date-btn" class="btn--primary t_eo2">ACEPTAR</button>
             </div>
-
-        </form>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>
