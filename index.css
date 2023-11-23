@@ -1,6 +1,5 @@
 @import 'tokens.css';
 
-
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -9,20 +8,35 @@
 
 html {
     height: 100%;
+    font-size: 62.5%;
+    font-family: var(--ff-s);
+    scroll-behavior: smooth;
+
+    -ms-overflow-style: none;   /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;      /* Hide scrollbar for Firefox */
 }
 
 body {
-    width: 100%;
     height: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
 }
 
 h1 {
+    font-weight: 600;
     font-size: 20pt;
+    letter-spacing: 0.8px;
 }
 
 h2 {
     margin-bottom: 3px;
+    padding: 0 8px;
     font-size: 16pt;
+    font-family: 'Clash Display';
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 span {
@@ -42,105 +56,298 @@ textarea {
     resize: none;
 }
 
-
-body {
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+input, select {
+    font-family: var(--ff-s);
 }
 
-input, select, button {
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-*::-webkit-scrollbar
-{
+*::-webkit-scrollbar {
     background-color: #fff;
+    width: 4px;
+    display: none;
 }
 
-*::-webkit-scrollbar-thumb
-{
-    background-color: var(--primary-50);
+*::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-20);
 }
 
-/* --------------------------NEW EVENT DIALOG------------------------- */
+/* -------------------------- NEW EVENT DIALOG ------------------------- */
 .new-event-dialog {
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--secondary-95);
     position: absolute;
-    left: -360px;
-    z-index: 10;            /*Cambiar a uno mayor*/
-    
-    grid-template-rows: 56px 1fr;
+    right: -100%;
+    z-index: 12;            /*Cambiar a uno mayor*/
+    grid-template-rows: 56px 1fr auto;
 }
 
 .new-event-dialog.active {
-    left: 0px;
+    right: 0px;
 }
 
-.dialog-header {
+.dialog-header, .form-header {
     padding: 0 16px;
-    flex-direction: row;
+    background: var(--primary-50);
     align-items: center;
-    justify-content: space-between;
+}
+
+.dialog-header__title {
+    font-family: var(--ff-p);
+    font-weight: 600;
+    font-size: 2rem;
+    letter-spacing: 0.4px;
+    color: var(--secondary-20);
 }
 
 .new-event-dialog form {
-    padding: 0 16px;
+    padding: 16px;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
 }
 
-.new-event-dialog form input{
+.form-title {
+    font-family: var(--ff-p);
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    line-height: 56px;
+    color: var(--secondary-20);
+}
+
+.btn-cont {
+    padding: 0 16px 16px;
+}
+
+button, input[type="button"], input[type="reset"] {
     height: 48px;
-    width: 100%;
-    margin-bottom: 10px;
+    padding: 0 12px;
+    font-family: var(--ff-p);
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 0.8px;
+    color: var(--secondary-20);
+    border: solid 2px transparent;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    cursor: pointer;
 }
 
-/* ------------------------------APP BAR------------------------------ */
-.app-bar
-{
-    padding: 0 16px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    z-index: 6;
+.btn--primary {
+    background: var(--primary-50);
 }
 
-.user-avatar
-{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    /* background-color: var(--primary-50); */
+.btn--primary:hover {
+    background: var(--secondary-20);
+    color: var(--primary-50);
+}
+
+.btn--secondary {
+    background: transparent;
+}
+
+.btn--secondary:hover {
+    border: solid 2px var(--secondary-20);
+}
+
+.btn-cont button {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+input {
+    height: 48px;
+    padding: 0 10px;
+    background: var(--primary-90);
+    border: none;
+    font-family: var(--ff-s);
+    font-size: 1.6rem;
+    color: var(--secondary-20);
+    outline: none;
+}
+
+.custom-input {
+    height: 48px;
     overflow: hidden;
 }
 
-.user-avatar a
-{
-    height: 100%;
-    background-image: url(../assets/img/user-01.png);
-    background-repeat: no-repeat;
-    background-size: contain;
+.custom-input.active {
+    box-shadow: 4px 4px 0 0 var(--secondary-20);
 }
-/* -----------------------------/APP BAR------------------------------ */
 
-/* -----------------------------MAIN VIEW----------------------------- */
-.main-view
-{
-    /* background: yellowgreen; */
+.custom-input__btn {
+    height: 44px;
+    width: 44px;
+    background: var(--primary-90);
+    border-right: 2px solid var(--secondary-20);
+    cursor: pointer;
+}
+
+.custom-input__btn svg {
+    height: 24px;
+}
+
+.custom-input__btn svg * {
+    fill: var(--secondary-20);
+}
+
+.custom-input__btn:hover {
+    background: var(--primary-80);
+}
+
+.custom-input input {
+    height: 44px;
+    flex-grow: 1;
+}
+
+label {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.label--top {
+    padding: 0 8px;
+}
+
+input::placeholder {
+    color: var(--primary-40);
+}
+
+input:hover, textarea:hover {
+    background: var(--primary-80);
+}
+
+input:focus, textarea:focus, .custom-input:focus {
+    box-shadow: 4px 4px 0 0 var(--secondary-20);
+}
+
+/* ------------------------------- DATE MODAL ------------------------------- */
+#date-modal {
     height: 100%;
     width: 100%;
-
-    grid-template-rows: 56px 1fr 48px;
+    background-color: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0%;
+    display: flex;
+    transition: all .3s ease-out;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    z-index: 16;
 }
 
-.sections-cont
+#date-modal.active {
+    visibility: visible;
+    opacity: 100%;
+}
+
+/* -------------------------- DATE FORM ---------------------------- */
+.date-form {
+    width: 300px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    overflow: hidden;
+}
+
+.date-form input, .date-form select {
+    height: 48px;
+}
+
+/* .wrappers-cont
 {
-    /* height: 560px;
-    width: 100%; */
-    /* background: var(--primary-95); */
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+} */
+
+.wrapper {
+    height: 120px;
+    width: 80px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;   /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none;      /* Hide scrollbar for Firefox */
+    display: inline-block;
+    position: relative;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+.wrapper::-webkit-scrollbar {
+    display: none;              /* Hide scrollbar for Chrome, Safari and Opera */
+}
+
+.wrapper::before, .wrapper::after {
+    content: '';
+    display: block;
+    height: 40px;
+    position: sticky;
+}
+
+.wrapper::before {
+    background: linear-gradient(to bottom, rgb(255, 255, 255) 10%, rgba(255, 255, 255, .6));
+    border-bottom: solid 2px var(--secondary-20);
+    top: 0;
+}
+
+.wrapper::after {
+    background: linear-gradient(to top, rgb(255, 255, 255) 10%, rgba(255, 255, 255, .6));
+    border-top: solid 2px var(--secondary-20);
+    bottom: 0;
+}
+
+.option {
+    font-size: 1.6rem;
+    line-height: 40px;
+    width: 100%;
+    text-align: center;
+    scroll-snap-align: center;
+}
+
+#birthdate-display {
+    margin-bottom: 30px;
+}
+
+.date-display {
+    display: inline;
+}
+
+.date-form textarea {
+    padding: 10px;
+}
+
+/* ------------------------------APP BAR------------------------------ */
+.app-bar {
+    padding: 0 16px;
+    background: var(--primary-50);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Clash Display';
+    color: var(--secondary-20);
+    z-index: 6;
+}
+
+/* -----------------------------MAIN VIEW----------------------------- */
+.main-view {
+    height: 100%;
+    width: 100%;
+    grid-template-rows: 56px 1fr 60px;
+}
+
+.sections-cont {
+    height: 100%;
+    width: 100%;
+    background: var(--secondary-95);
     overflow: hidden;
     scroll-behavior: smooth;
     white-space: nowrap;
@@ -148,48 +355,39 @@ input, select, button {
     flex-wrap: nowrap;
 }
 
-.section
-{
+.section {
     height: 100%;
     width: 100%;
-    flex: 0 0 100vw;
+    flex: 0 0 100%;
     position: relative;
     padding: 10px 16px 0;
     overflow-y: scroll;
 }
 
-/* #home
-{
-    background: coral;
-} */
+#today-events {
+    box-shadow: 4px 4px 0 0 var(--secondary-20);
+}
 
-.events-group,
-.contacts-group
-{
+.events-group, .contacts-group {
     margin-bottom: 15px;
 }
 
-.events-cont,
-.contacts-cont
-{
-    /* min-height: 64px; */
+.events-cont, .contacts-cont {
     width: 100%;
-    /* padding: 4px 12px; */
+    border: var(--secondary-20) solid 2px;
     overflow: hidden;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
 }
 
-.sentence-case::first-letter
-{
+.sentence-case::first-letter {
     text-transform: uppercase;
 }
 
-.card
-{
+.card {
     width: 100%;
     height: 64px;
     padding: 8px;
@@ -201,352 +399,111 @@ input, select, button {
     -o-transition: all ease-out .3s;
 }
 
-.event
-{
-    background-color: #f5f5f5;
+.event {
+    background-color: var(--primary-90);
 }
 
-.event:hover
-{
+.event:hover {
     background-color: var(--primary-80);
 }
 
-.contact
-{
+.empty-state {
+    background: var(--secondary-80);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.contact {
     background-color: #fff;
 }
 
-.contact:hover
-{
+.contact:hover {
     background-color: var(--primary-95);
     cursor: pointer;
 }
 
-.avatar
-{
+.avatar {
     height: 48px;
     width: 48px;
     margin-right: 12px;
-    background: var(--primary-60);
+    background: var(--secondary-70);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    line-height: 48px;
+    color: var(--secondary-30);
+    font-family: 'Clash Display';
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
 }
 
-.event-info
-{
+.event-info {
     flex-wrap: wrap;
     flex-direction: column;
     flex-grow: 1;
 }
 
-.event-details
-{
+.event-details {
     width: 100%;
     justify-content: space-between;
 }
 
-.event-name
-{
+.event-name {
+    font-size: 1.6rem;
     line-height: 16pt;
 }
 
-.event-date
-{
+.event-date {
+    font-weight: 600;
     font-size: 8pt;
     line-height: 16pt;
-    color: var(--primary-50);
+    color: var(--secondary-20);
 }
 
-.event-day,
-.event-month,
-.event-year
-{
+.event-day, .event-month, .event-year {
     display: inline;
 }
 
-.event-desc
-{
+.event-desc {
     font-size: 10pt;
     line-height: 10pt;
 }
 
-.turn,
-.unit
-{
+.turn, .unit {
     display: inline;
 }
 
-.turn
-{
+.turn {
     font-weight: 800;
 }
 
-.contact-name
-{
+.contact-name {
     font-size: 14pt;
     font-weight: bold;
 }
 
-/* #contacts
-{
-    background: crimson;
-} */
-/* ----------------------------/MAIN VIEW----------------------------- */
-
-/* -------------------------------MODAL------------------------------- */
-#modal {
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 11;
-    visibility: hidden;
-    opacity: 0%;
-    display: flex;
-    transition: all .3s ease-out;
-    -webkit-transition: all .3s ease-out;
-    -moz-transition: all .3s ease-out;
-    -ms-transition: all .3s ease-out;
-    -o-transition: all .3s ease-out;
-}
-
-#modal.active {
-    visibility: visible;
-    opacity: 100%;
-}
-/* ------------------------------/MODAL------------------------------- */
-
-/* --------------------------BIRTHDAY FORM---------------------------- */
-.birthday-form {
-    width: 300px;
-    margin: auto;
-    padding: 20px;
-    background-color: #fff;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-}
-
-.form-title
-{
-    font-size: 16pt;
-    font-weight: bold;
-    text-align: center;
-    color: var(--primary-50);
-}
-
-.birthday-form input,
-.birthday-form select
-{
-    height: 48px;
-}
-
-/* .income-form input[type="button"]
-{
-    width: 47%;
-} */
-
-.birthday-form select
-{
-    padding: 0 7px;
-    background: var(--primary-95);
-    border: none;
-    border-bottom: solid var(--primary-80) 2px;
-    border-radius: 5px 5px 0 0;
-    -webkit-border-radius: 5px 5px 0 0;
-    -moz-border-radius: 5px 5px 0 0;
-    -ms-border-radius: 5px 5px 0 0;
-    -o-border-radius: 5px 5px 0 0;
-    font-family: "Roboto";
-    font-size: 12pt;
-}
-
-input,
-textarea
-{
-    padding: 0 10px;
-    background: var(--primary-95);
-    border: none;
-    border-bottom: solid var(--primary-80) 2px;
-    border-radius: 5px 5px 0 0;
-    -webkit-border-radius: 5px 5px 0 0;
-    -moz-border-radius: 5px 5px 0 0;
-    -ms-border-radius: 5px 5px 0 0;
-    -o-border-radius: 5px 5px 0 0;
-    font-family: "Roboto";
-    font-size: 12pt;
-    transition-duration: 0.2s;
-}
-
-input::placeholder,
-textarea::placeholder
-{
-    color: var(--primary-50);
-}
-
-input:focus,
-textarea:focus
-{
-    outline: none;
-    border-bottom: solid var(--primary-50) 2px;
-}
-
-button,
-input[type="button"], 
-input[type="reset"] 
-{
-    background-color: var(--primary-50);
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-    -webkit-border-radius: 24px;
-    -moz-border-radius: 24px;
-    -ms-border-radius: 24px;
-    -o-border-radius: 24px;
-}
-
-button {
-    height: 48px;
-    padding: 0 24px;
-    font-family: "Roboto";
-    font-size: 12pt;
-}
-
-/*===============================================================*/
-
-/* .wrappers-cont
-{
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-} */
-
-.wrapper
-{
-    height: 120px;
-    width: 80px;
-    margin: 0 1px;
-    /* background: blue; */
-    overflow-y: scroll;
-    -ms-overflow-style: none;   /* Hide scrollbar for IE and Edge */
-    scrollbar-width: none;      /* Hide scrollbar for Firefox */
-    /* margin-bottom: 10px; */
-    display: inline-block;
-    position: relative;
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-}
-
-.wrapper::-webkit-scrollbar
-{
-    display: none;              /* Hide scrollbar for Chrome, Safari and Opera */
-}
-
-.wrapper::before,
-.wrapper::after
-{
-    content: '';
-    display: block;
-    height: 40px;
-    position: sticky;
-}
-
-.wrapper::before
-{
-    background: linear-gradient(to bottom, rgb(255, 255, 255) 10%, rgba(255, 255, 255, .6));
-    border-bottom: solid 2px rgb(255, 136, 0);
-    top: 0;
-}
-
-.wrapper::after
-{
-    background: linear-gradient(to top, rgb(255, 255, 255) 10%, rgba(255, 255, 255, .6));
-    border-top: solid 2px rgb(255, 136, 0);
-    bottom: 0;
-}
-
-.option
-{
-    line-height: 40px;
-    width: 100%;
-    text-align: center;
-    scroll-snap-align: center;
-    /* background: green; */
-}
-
-#birthdate-display
-{
-    margin-bottom: 30px;
-}
-
-.date-display
-{
-    display: inline;
-}
-
-.birthday-form textarea
-{
-    padding: 10px;
-    /* line-height: 14pt; */
-}
-
-.btn-cont
-{
-    height: 47px;
-}
-
-/* .default-opt
-{
-    color: var(--primary-50);
-} */
-/* --------------------------/NEW PROD FORM------------------------------ */
-
 /* ----------------------------BOTTOM BAR-------------------------------- */
 .bottom-bar {
-    /* height: 50px; */
-    /* width: 100%; */
     padding: 12px;
-    background-color: #fff;
+    background-color: var(--primary-50);
     position: relative;
-    /*left: 0;
-    bottom: 0; */
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap-reverse;
-    /* align-items: flex-end; */
-    box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.2);
-    z-index: 5;
-}
-
-.circle {
-    border-radius: 50%;
+    justify-content: space-evenly;
+    z-index: 4;
 }
 
 #plus-btn-cont {
     height: 56px;
     width: 56px;
-    background-color: var(--primary-50);
-    box-shadow: 0 6px 12px var(--primary-70);
-    position: absolute;
-    z-index: 11;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
+    background-color: var(--secondary-20);
+    z-index: 8;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
     transition: 0.05s ease-out all;
     -webkit-transition: 0.05s ease-out all;
     -moz-transition: 0.05s ease-out all;
@@ -554,8 +511,8 @@ button {
     -o-transition: 0.05s ease-out all;
 }
 
-#plus-btn-cont.active {
-    box-shadow: none;    
+#plus-btn-cont:active {
+    background-color: var(--secondary-30);    
 }
 
 #plus-btn {
@@ -578,13 +535,11 @@ button {
     -o-transform: rotateZ(45deg);
 }
 
-.plus-line
-{
-    background-color: #fff;
+.plus-line {
+    background-color: var(--primary-50);
 }
 
-.plus-line-h
-{
+.plus-line-h {
     height: 2px;
     width: 100%;
     position: relative;
@@ -602,8 +557,7 @@ button {
     -o-border-radius: 1px;
 }
 
-.plus-line-v
-{
+.plus-line-v {
     height: 100%;
     width: 2px;
     position: relative;
@@ -617,38 +571,58 @@ button {
     -o-transform: translate(-50%, -2px);
 }
 
-.bottom-bar__btn
-{
+[data-menu="events"]::after {
+    content: "Eventos";
+}
+
+[data-menu="settings"]::after {
+    content: "Ajustes";
+}
+
+.bottom-bar__btn {
     height: 24px;
-    width: 24px;
-    /* margin: 0 20px; */
-    /* background-color: var(--primary-50); */
-    display: block;
+    width: 48px;
     text-decoration: none;
+    justify-content: flex-start;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    /* color: var(--primary-50); */
+    color: var(--secondary-20);
+    overflow-y: hidden;
 }
 
-.bottom-bar__btn .f87ab682-912b-48b5-8741-5fd1cac82e10,
-.bottom-bar__btn .aa0702b9-5d0a-4ccd-8cb0-da27c695d337
-{
-    transition: .3s ease-out all;
-    -webkit-transition: .3s ease-out all;
-    -moz-transition: .3s ease-out all;
-    -ms-transition: .3s ease-out all;
-    -o-transition: .3s ease-out all;
+.bottom-bar__btn.active {
+    height: 44px;
 }
 
-.bottom-bar__btn:hover .f87ab682-912b-48b5-8741-5fd1cac82e10,
-.bottom-bar__btn:hover .aa0702b9-5d0a-4ccd-8cb0-da27c695d337,
-.bottom-bar__btn.active .f87ab682-912b-48b5-8741-5fd1cac82e10,
-.bottom-bar__btn.active .aa0702b9-5d0a-4ccd-8cb0-da27c695d337
-{
+.icon-cont {
+    height: 28px;
+    width: 28px;
+    border-radius: 14px;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    -ms-border-radius: 14px;
+    -o-border-radius: 14px;
+}
+
+.bottom-bar__btn.active .icon-cont {
+    width: 48px;
+    background: var(--secondary-20);
+}
+
+.bottom-bar__btn svg {
+    height: 24px;
+}
+
+.path {
+    fill: var(--secondary-20);
+}
+
+.bottom-bar__btn:hover .path {
+    fill: var(--secondary-30);
+}
+
+.bottom-bar__btn.active .path {
     fill: var(--primary-50);
 }
-
-/* .bubble-btn {
-    height: 50px;
-    width: 50px;
-    background-color: blue;
-    cursor: pointer;
-} */
-/* ---------------------------/BOTTOM BAR-------------------------------- */

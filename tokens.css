@@ -1,19 +1,46 @@
 :root {
     /* Color */
-    --primary-05: #170800;
-    --primary-10: #2e1000;
-    --primary-20: #5c2000;
-    --primary-30: #8a3100;
-    --primary-40: #b84100;
-    --primary-50: #e65100;
-    --primary-60: #eb7433;
-    --primary-70: #f09766;
-    --primary-80: #f5b999;
-    --primary-90: #fadccc;
-    --primary-95: #fdeee6;
+    --primary-05: #001a0f;
+    --primary-10: #00331f;
+    --primary-20: #00663d;
+    --primary-30: #00995c;
+    --primary-40: #00cc7a;
+    --primary-50: #00ff99;
+    --primary-60: #33ffad;
+    --primary-70: #66ffc2;
+    --primary-80: #99ffd6;
+    --primary-90: #ccffeb;
+    --primary-95: #e6fff5;
+
+    --secondary-05: #090a1a;
+    --secondary-10: #111433;
+    --secondary-20: #222966;
+    --secondary-30: #333d99;
+    --secondary-40: #4452cc;
+    --secondary-50: #5566ff;
+    --secondary-60: #7785ff;
+    --secondary-70: #99a3ff;
+    --secondary-80: #bbc2ff;
+    --secondary-90: #dde0ff;
+    --secondary-95: #eef0ff;
+
+    --neutral-05: #0d0d0d;
+    --neutral-10: #1a1a1a;
+    --neutral-20: #333333;
+    --neutral-30: #4d4d4d;
+    --neutral-40: #666666;
+    --neutral-50: #808080;
+    --neutral-60: #999999;
+    --neutral-70: #b3b3b3;
+    --neutral-80: #cccccc;
+    --neutral-90: #e6e6e6;
+    --neutral-95: #f2f2f2;
 
     --tc: #00f;
 
     --b-bar-btn: 24px;
-    --b-bar-p: 12px; 
+    --b-bar-p: 12px;
+
+    --ff-p: 'Clash Display';
+    --ff-s: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

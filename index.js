@@ -7,13 +7,13 @@
 
 //const events = document.getElementById("events");
 
-const homeSection = document.getElementById("home");
-const contactsSection = document.getElementById("contacts");
+const homeSection = document.getElementById("events");
+const settingsSection = document.getElementById("settings");
 
 const todayEvents = document.getElementById("today-events");
 
 const dialog = document.getElementById("dialog");
-const modal = document.getElementById("modal");
+const dateModal = document.getElementById("date-modal");
 
 const formTitle = document.querySelector('.form-title');
 
@@ -26,8 +26,20 @@ const birthDayDisplay = document.querySelector('.birthday-display');
 const birthMonthDisplay = document.querySelector('.birthmonth-display');
 const birthYearDisplay = document.querySelector('.birthyear-display');
 
+const dateInputArray = Array.from(document.querySelectorAll('[type=datetime]'));
+dateInputArray.forEach(input => {
+    input.addEventListener("focus", () => {
+        input.parentNode.classList.add("active");
+        console.log("Date open")
+    });
+    input.addEventListener("blur", () => {
+        input.parentNode.classList.remove("active");
+        console.log("Date closed")
+    });
+})
+
 const nameInput = document.getElementById("name-input");
-const birthdayInput = document.getElementById("birthday-input");
+const dateInput = document.getElementById("date-input");
 
 const newEventBtn = document.getElementById("new-event-btn");
 
@@ -76,7 +88,7 @@ window.addEventListener("load", () => {
 });
 
 newEventBtn.addEventListener("click", () => {
-    const event = createNewEvent(`${nameInput.value}`, parseInt(birthMonth), birthDay, nextTurnYear);
+    const event = createNewEvent(`${nameInput.value}`, parseInt(birthMonth), birthDay, birthYear);
     if (birthMonth == currentMonth) {
         const thisMonthGroup = document.getElementById("this-month-events");
         thisMonthGroup.appendChild(event);
@@ -92,25 +104,22 @@ newEventBtn.addEventListener("click", () => {
 /* FUNCTIONS
 ================================================================*/
 // Toggle birth date dialog
-function toogleModal () {
+function toggleDateModal () {
     if(!isToggled) {
-        modal.classList.toggle("active");
-        
+        dateModal.classList.toggle("active");
         updateDay();
         updateMonth();
         updateYear();
-
-        isToggled = true;    
+        isToggled = true;
 
         setTimeout(() => {
             isToggled = false;
-        }, 200);
+        }, 100);
     }
 }
 
 // Toggle 'New event' dialog
-function toogleNewEventDialog ()
-{
+function toogleNewEventDialog() {
     if(!dialogToggled) {
         dialog.classList.toggle("active");
         dialogToggled = true;
@@ -126,8 +135,7 @@ function toogleNewEventDialog ()
 document.querySelectorAll("[data-menu]").forEach (item => {
     item.addEventListener ('click', e => {
         let dataCanvas = document.querySelector("[data-menu].active");
-        if (dataCanvas)
-        {
+        if (dataCanvas) {
             dataCanvas.classList.toggle('active');
         }
         item.classList.toggle('active');
@@ -335,7 +343,7 @@ function updateYear() {
 
 /* DYNAMIC
 ================================================================*/
-// Update birthday in #birthday-input
+// Update birthday in #date-input
 function newDate() {
     birthdayInput.value = `${birthDay}/${parseInt(birthMonth) + 1}/${birthYear}`;
 }
@@ -393,32 +401,32 @@ function setYears() {
     }
 } */
 
-function calcAge() {
-    if (birthYear == currentYear) {
+function calcAge(year, month, day) {
+    if (year == currentYear) {
         age = 0;
         nextTurnYear = currentYear + 1;
         turn = age + 1;
     } else {
-        if (birthMonth < currentMonth) {
-            age = currentYear - birthYear;
+        if (month < currentMonth) {
+            age = currentYear - year;
             nextTurnYear = currentYear + 1;
             turn = age + 1;
-        } else if (birthMonth == currentMonth) {
-            if (birthDay < currentDay) {
-                age = currentYear - birthYear;
+        } else if (month == currentMonth) {
+            if (day < currentDay) {
+                age = currentYear - year;
                 nextTurnYear = currentYear + 1;
                 turn = age + 1;
-            } else if (birthDay == currentDay) {
-                age = currentYear - birthYear;
+            } else if (day == currentDay) {
+                age = currentYear - year;
                 nextTurnYear = currentYear;
                 turn = age;
             } else {
-                age = currentYear - birthYear - 1;
+                age = currentYear - year - 1;
                 nextTurnYear = currentYear;
                 turn = age + 1;
             }
         } else {
-            age = currentYear - birthYear - 1;
+            age = currentYear - year - 1;
             nextTurnYear = currentYear;
             turn = age + 1;
         }
@@ -426,23 +434,25 @@ function calcAge() {
 }
 
 function createNewEvent(name, month, day, year) {
-    calcAge();
+    calcAge(year, month, day);
 
     const event = document.createElement('div');
     event.setAttribute("class", "card");
     event.classList.add('event');
-    event.classList.add('flex-cont');
+    event.classList.add('flex');
 
     const avatar = document.createElement('div');
+    const firstLetter = name.slice(0, 1);
     avatar.setAttribute("class", "avatar");
+    avatar.textContent = firstLetter;
 
     const event_info = document.createElement('div');
     event_info.setAttribute("class", "event-info");
-    event_info.classList.add('flex-cont');
+    event_info.classList.add('flex');
 
     const event_detail = document.createElement('div');
     event_detail.setAttribute("class", "event-details");
-    event_detail.classList.add('flex-cont');
+    event_detail.classList.add('flex');
 
     const event_name = document.createElement('h3');
     event_name.setAttribute("class", "event-name");
@@ -450,7 +460,7 @@ function createNewEvent(name, month, day, year) {
 
     const event_date = document.createElement('p');
     event_date.setAttribute("class", "event-date");
-    event_date.innerHTML = `<span class="event-day">${day}</span>/<span class="event-month">${parseInt(month) + 1}</span>/<span class="event-year">${year}</span>`;
+    event_date.innerHTML = `<span class="event-day">${day}</span>/<span class="event-month">${parseInt(month) + 1}</span>/<span class="event-year">${nextTurnYear}</span>`;
 
     const event_desc = document.createElement('p');
     event_desc.setAttribute("class", "event-desc");
@@ -477,6 +487,30 @@ function saveNewEvent(name, month, day, year) {
     };
 };
 
+function createEmptyState(eventsCont, month) {
+    if(eventsCont.innerHTML.trim() === '') {
+        console.log("El contenedor no tiene hijos");
+        const emptyState = document.createElement('div');
+        emptyState.classList.add("card");
+        emptyState.classList.add("empty-state");
+        emptyState.classList.add("flex");
+        emptyState.textContent = `No hay cumples en ${month} :(`;
+        eventsCont.appendChild(emptyState);
+    }
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((m) => {
+            if(m.addedNodes.length > 0) {
+                const emptyState = eventsCont.querySelector(".empty-state");
+                if(emptyState) {
+                    emptyState.remove();
+                }
+            }
+        });
+    });
+    observer.observe(eventsCont, {childList: true});
+}
+
 // Display events groups (by months)
 // Remainig events this year
 for(m = currentMonth + 1; m < monthsArray.length; m++) {
@@ -491,20 +525,11 @@ for(m = currentMonth + 1; m < monthsArray.length; m++) {
     eventsCont.setAttribute("class", "events-cont");
     eventsCont.setAttribute("id", `month-${m + 1}-events`);
 
-    const event = document.createElement('div');
-    event.setAttribute("class", "card");
-    event.classList.add("event");
-    event.classList.add("flex-cont");
-
-    const noEvent = document.createElement('p');
-    noEvent.setAttribute("class", "event-name");
-    noEvent.textContent = `No hay cumpleaños en ${monthsArray[m].name.es}`
+    createEmptyState(eventsCont, monthsArray[m].name.es);
 
     homeSection.appendChild(eventsGroup);
     eventsGroup.appendChild(eventsGroupHeader);
     eventsGroup.appendChild(eventsCont);
-    eventsCont.appendChild(event);
-    event.appendChild(noEvent);
 }
 
 // Upcoming events next year
@@ -520,46 +545,9 @@ for(m = 0; m < currentMonth; m++) {
     eventsCont.setAttribute("class", "events-cont");
     eventsCont.setAttribute("id", `month-${m + 1}-events`);
 
-    const event = document.createElement('div');
-    event.setAttribute("class", "card");
-    event.classList.add("event");
-    event.classList.add("flex-cont");
-
-    const noEvent = document.createElement('p');
-    noEvent.setAttribute("class", "event-name");
-    noEvent.textContent = `No hay cumpleaños en ${monthsArray[m].name.es} de ${currentYear + 1}`
+    createEmptyState(eventsCont, `${monthsArray[m].name.es} de ${currentYear + 1}`);
 
     homeSection.appendChild(eventsGroup);
     eventsGroup.appendChild(eventsGroupHeader);
     eventsGroup.appendChild(eventsCont);
-    eventsCont.appendChild(event);
-    event.appendChild(noEvent);
-}
-
-/* CONTACTS
-================================================================*/
-// Generar contactos
-for(c = 0; c < 20; c++)
-{
-    const contactsGroup = document.querySelector('.contacts-group');
-    const contactsCont = document.querySelector('.contacts-cont');
-    
-    const contact = document.createElement('div');
-    contact.setAttribute("class", "card");
-    contact.classList.add("contact");
-    contact.classList.add("flex-cont");
-    contact.setAttribute("onclick", "toogleModal()");
-
-    const avatar = document.createElement('div');
-    avatar.setAttribute("class", "avatar");
-
-    const contactName = document.createElement('p');
-    contactName.setAttribute("class", "contact-name");
-    contactName.textContent = `Contacto ${c + 1}`;
-
-    contactsSection.appendChild(contactsGroup);
-    contactsGroup.appendChild(contactsCont);
-    contactsCont.appendChild(contact);
-    contact.appendChild(avatar);
-    contact.appendChild(contactName);
 }
